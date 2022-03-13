@@ -23,11 +23,15 @@ RSpec.describe 'equality matchers' do # rubocop:disable Metrics/BlockLength
     let(:d) { [1, 2, 3] }
     let(:e) { c }
 
-    it 'cares about object identity' do
-      expect(c).to eq(d)
-      expect(c).to eql(d)
-      expect(c).to equal(e)
+    it 'cares about object identity' do # equal cares about identity
+      expect(c).to eq(d) # cares about value
+      expect(c).to eql(d) # cares about value and value type
+
+      expect(c).to equal(e) # care about value, value type and ID
+      expect(c).to be(e) # be is an alias for equal
+
       expect(c).not_to equal(d)
+      expect(c).not_to equal([1, 2, 3])
     end
   end
 end
